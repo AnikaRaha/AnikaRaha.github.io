@@ -31,12 +31,12 @@
 		    editable: true,
 		    eventLimit: true,
 		    events: addEvent(),
-		    eventDrop: function(event) {
+		    eventDrop: function changeEvent(event) {
 				//alert("event drop alert");
 				var newArr = [];
 				var arr = JSON.parse(localStorage.getItem('allVal'));
-				var newDate = event.start._d;
-				console.log(newDate);
+				var newDate = event.start._i[0] + "-" + (event.start._i[1]+1) + "-" + event.start._i[2];
+				//console.log(new Date(newDate));
 				for (var i = 0; i < arr.length; i++) {
 		    		if (arr[i].uid == event.eventID) {
 		    			//alert("boom");
@@ -51,21 +51,29 @@
 		});
 
 		function addEvent(){
-			var events = [];
-			var arr = JSON.parse(localStorage.getItem('allVal'));
+				
+			
 			//console.log('arr',arr);
-			for (var i = 0; i < arr.length; i++) {
-	    		//console.log(arr[i].dueDate);
-	    		events.push({
-	    			title  : arr[i].title,
-			        start  : new Date(arr[i].dueDate),
-			        eventID : arr[i].uid
-	    		});
-	    	};
+			if ('allVal' in localStorage) {
+				var events = [];
+				var arr = JSON.parse(localStorage.getItem('allVal'));
+				for (var i = 0; i < arr.length; i++) {
+		    		//console.log(arr[i].dueDate);
+		    		events.push({
+		    			title  : arr[i].title,
+				        start  : new Date(arr[i].dueDate),
+				        eventID : arr[i].uid
+		    		});
+		    	};
 
-	    	console.log(events);
+		    	console.log(events);
 
-	    	return events;
+		    	return events;
+			} else {
+				return null;				
+			}
+				
+	    	//return null;
 		}
 
 		/*function changeEvent(event) {

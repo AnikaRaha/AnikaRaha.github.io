@@ -96,7 +96,7 @@
     $(this).toggleClass('bg-secondary');
   });
     
-  localStorage.removeItem('allVal');
+  //localStorage.removeItem('allVal');
     
   $('#list').sortable({
     axis: 'y',
