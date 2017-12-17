@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>TO DO List</title>
+	<title>TO DO List with DB</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -22,23 +22,28 @@
 	   		<label class='form-control col bg-light'>Due Date</label>
 	   		<label class='form-control col bg-light'>Priority</label>
    		</div>
-   		<div class='row'>
-	   		<input required type="text" class='form-control col' value="" name="task" id="name"/>
-	   		<input required type="text" class='form-control col' value="" name="task" id="title"/>
-	   		<div class='form-control col' >
-	   			<input type="radio" value="true" name="done" id="doneT"/>True <br>
-	   			<input type="radio" value="false" name="done" id="doneF"/>False
-	   		</div>	   		
-	   		<input required type="date" class='form-control col' value="2017-01-01" name="dueDate" id="dueDate"/>
-	   		<div class='form-control col' >
-	   			<input type="radio" value="high" name="priority" id="priorityH"/>High <br>
-	   			<input type="radio" value="medium" name="priority" id="priorityM"/>Medium <br>
-	   			<input type="radio" value="low" name="priority" id="priorityL"/>Low
+   		<form id="form" method="post" action="">
+   			<div class='row'>
+		   		<input required type="text" class='form-control col' value="" name="name" id="name"/>
+		   		<input required type="text" class='form-control col' value="" name="title" id="title"/>
+		   		<input type="hidden" value=new Date().getTime() name="hidden" id="hidden"/>
+		   		<div class='form-control col' >
+		   			<input type="radio" value="true" name="done" id="doneT"/>True <br>
+		   			<input type="radio" value="false" name="done" id="doneF"/>False
+		   		</div>	   		
+		   		<input required type="date" class='form-control col' value="2017-01-01" name="dueDate" id="dueDate"/>
+		   		<div class='form-control col' >
+		   			<input type="radio" value="high" name="priority" id="priorityH"/>High <br>
+		   			<input type="radio" value="medium" name="priority" id="priorityM"/>Medium <br>
+		   			<input type="radio" value="low" name="priority" id="priorityL"/>Low
+		   		</div>
 	   		</div>
-   		</div>
-		<button id='button' class='btn btn-primary btn-sm'>ADD</button>
-		<a href="calender.html"><button id='buttonCal' class='btn btn-primary btn-sm'>Calendar</button></a>
-
+			<button type="button" name="button" id='button' class='btn btn-primary btn-sm'>ADD</button>
+			<a href="calender.html"><button id='buttonCal' class='btn btn-primary btn-sm'>Calendar</button></a>
+   		</form>
+	   		
+			
+   
 		<ol class='list-group bg-light' id='list'></ol>
    	</div>	
 
