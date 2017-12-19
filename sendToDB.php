@@ -26,27 +26,9 @@ if (isset($_POST['name']) && isset($_POST['title']) && isset($_POST['done']) && 
             VALUES ('$name', '$title', '$done', '$dueDate', '$priority')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "New records created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
 
-    
-
-//get data
-
-/*$sql = "SELECT name, title, done, dueDate, priority FROM todolist";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "name: " . $row["name"]. " - title: " . $row["title"]. " " . $row["done"]. " ". $row["dueDate"]. " ". $row["priority"].  "<br>";
-    }
-} else {
-    echo "0 results";
-}*/
-
-
-//echo ' saved';

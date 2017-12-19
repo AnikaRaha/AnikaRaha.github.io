@@ -32,6 +32,7 @@
   function checkError(name, title, done, dueDate, priority) {
     try {
       if (done.length && priority.length && name.length && title.length && dueDate.length) {
+        sendToDatabase();
         storeIntoList(name, title, done, dueDate, priority); 
         //alert("inside getValuesFromForm");
       } else {
@@ -111,7 +112,7 @@
           console.log(textStatus, errorThrown);
         }
     });
-    getValuesFromForm();
+    //getValuesFromForm();
   } 
 
   function showAllFromDB() {
@@ -131,9 +132,24 @@
     });
   }
 
+  function ajaxCallOnSort(newTodos){
+    var stringifiedTodos = JSON.stringify(newTodos);
+    console.log(stringifiedTodos);
+
+    $.ajax({
+          url: "updateOnSort.php",
+          type: "post",
+          //dataType: "json",
+          data: {updatedTodos:stringifiedTodos} ,
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
+      });
+  }
+
   $(window).on('load', showAllFromDB());
     
-  $('#button').on('click', sendToDatabase);
+  $('#button').on('click', getValuesFromForm);
 
   $(document).on('click', 'li', function() {
     $(this).toggleClass('bg-secondary');
@@ -141,28 +157,29 @@
     
   //localStorage.removeItem('allVal');
     
-  /*$('#list').sortable({
+  $('#list').sortable({
     axis: 'y',
     stop: function (event, ui){
-    console.log(event.target.children[0].attributes[1].value);
-    var updatedListLen = $(event.target).children().length;
-    var todosLen = res.length;
-    
-    var newTodos = [];
+      console.log(event.target.children[0].attributes[1].value);
+      var updatedListLen = $(event.target).children().length;
+      var todosLen = res.length;
+      
+      var newTodos = [];
 
-    //working properly-----------------------------------------------------------
-    for (var i = 0; i < updatedListLen; i++) {
-      for (var j = 0; j < todosLen; j++) {
-        if(res[j].id == event.target.children[i].attributes[1].value) {
-          newTodos.push(res[j]);
-          break;
-        };
-      }
-    };
+      //working properly-----------------------------------------------------------
+      for (var i = 0; i < updatedListLen; i++) {
+        for (var j = 0; j < todosLen; j++) {
+          if(res[j].id == event.target.children[i].attributes[1].value) {
+            newTodos.push(res[j]);
+            break;
+          };
+        }
+      };
 
-    console.log(newTodos);
-    //localStorage.setItem("allVal", JSON.stringify(newTodos));
-  }});*/
+      console.log(newTodos);
+      ajaxCallOnSort(newTodos);
+    }
+  });
 
 
 })();
