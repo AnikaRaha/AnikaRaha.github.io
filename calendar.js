@@ -49,31 +49,37 @@ $(document).ready(function() {
 		        }
 		    },
 		    header: {
-		        left: 'prev,next today backToList',
+		        left: 'prev,next today',
 		        center: 'title',
-		        right: 'month,agendaWeek,agendaDay'
+		        right: 'backToList'
 		    },
 		    selectable: true,
 		    selectHelper: true,
 		    editable: true,
 		    eventLimit: true,
 		    events: events,
-		    /*eventDrop: function changeEvent(event) {
-				//alert("event drop alert");
-				var newArr = [];
-				var arr = JSON.parse(localStorage.getItem('allVal'));
-				var newDate = event.start._i[0] + "-" + (event.start._i[1]+1) + "-" + event.start._i[2];
-				//console.log(new Date(newDate));
-				for (var i = 0; i < arr.length; i++) {
-		    		if (arr[i].uid == event.eventID) {
-		    			//alert("boom");
-		    			arr[i].dueDate = newDate;
-		    		};
-		    		//console.log($.type(arr[i].dueDate));
-		    	};
-		    	console.log(arr);
-		    	localStorage.setItem("allVal", JSON.stringify(arr));
-			}*/   //changeEvent(event)	    
-		});
-    }
+		    eventDrop: function (event){
+		    	console.log(event.eventID);
+		    	var newDate = event.start._i[0] + "-" + (event.start._i[1]+1) + "-" + event.start._i[2];
+		    	var eid = event.eventID;
+
+		    	$.ajax({
+		    		url: "updateOnCalendarChange.php",
+		    		type: "post",
+		    		// data: {toSend: dataToSend},
+		    		data: {
+		    			date: newDate,
+		    			id: eid
+		    		},
+		    		success: function (response) {
+				        console.log(response);
+				    },
+			        error: function(jqXHR, textStatus, errorThrown) {
+			          	console.log(textStatus, errorThrown);
+			        } 
+				});
+		    }
+    	});
+	}
+
 });
