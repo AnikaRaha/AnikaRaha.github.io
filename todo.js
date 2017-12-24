@@ -40,7 +40,7 @@
       }
     }
     catch(e) {
-      alert("!!!ERROR!!!\n\nmake sure all the fields are filled and radio buttons re selected!");
+      alert("!!!ERROR!!!\n\nmake sure all the fields are filled and radio buttons are selected!");
     }
   }
 
@@ -150,6 +150,10 @@
   $(window).on('load', showAllFromDB());
     
   $('#button').on('click', getValuesFromForm);
+
+  $('#buttonCal').on('click', function(){
+    document.location.href = "calender.html";
+  });
 
   $(document).on('click', 'li', function() {
     $(this).toggleClass('bg-secondary');
